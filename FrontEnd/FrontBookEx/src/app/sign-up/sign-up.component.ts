@@ -1,50 +1,90 @@
 import { Component } from '@angular/core';
-import { NgForm, FormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+  FormGroup,
+  ValidatorFn,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import * as bcrypt from 'bcryptjs';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'] 
+  styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent {
-  constructor(private http: HttpClient) {}
+  signUpForm: FormGroup;
 
-  onSubmit(form: NgForm) {
-    if (form.invalid) {
-      console.log('Form non valido');
+  // Definizione dei campi del form con validatori di base
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    this.signUpForm = this.fb.group(
+      {
+        nome: ['', Validators.required], // Campo obbligatorio
+        cognome: ['', Validators.required], // Campo obbligatorio
+        email: ['', [Validators.required, Validators.email]], // Campo 'email' obbligatorio e deve essere un'email valida
+        password: ['', [Validators.required, Validators.minLength(8)]], // Campo 'password' obbligatorio e con almeno 8 caratteri
+        confirmPassword: ['', Validators.required], // Campo 'confirmPassword' obbligatorio per confermare la password
+      },
+      // qua aggiungo un validatore  per verificare se le password coincidono
+      { validators: [this.passwordsMatchValidator as ValidatorFn] }
+    );
+  }
+  // Funzione per validare che la password e la conferma della password siano uguali
+  passwordsMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value; // Ottengo il valore della password
+    const confirmPassword = form.get('confirmPassword')?.value; // Ottengo il valore della conferma della password
+    return password === confirmPassword ? null : { passwordsMismatch: true }; // Se non coincidono, restituisco un errore
+  }
+
+  // Questa funzione viene chiamata quando il form viene inviato
+  onSubmit() {
+    if (this.signUpForm.invalid) {
+      // Se il form non è valido, non invia i dati e stampo un messaggio di avviso
+      console.warn('Form non valido');
       return;
     }
 
-    const { nome, cognome, email, password, confirmPassword } = form.value;
+    // Estraggo i dati dal form
+    const { nome, cognome, email, password } = this.signUpForm.value;
+    // Imposto il numero di "salt rounds" per il processo di criptazione della password
+    const saltRounds = 10;
+    // Cifro la password prima di inviarla al backend
+    const hashedPassword = bcrypt.hashSync(password, saltRounds);
+    // Creo un oggetto con i dati dell'utente, usando la password cifrata
+    const userData = { nome, cognome, email, password: hashedPassword };
 
-    if (password !== confirmPassword) {
-      alert('Le password non coincidono!');
-      return;
-    }
+    // Log per vedere i dati prima di inviarli quindi questo dovremmo toglierlo appena ho l'url di Giorgio
+    console.log('Dati da inviare al backend (JSON):', JSON.stringify(userData));
 
-    const userData = {
-      nome,
-      cognome,
-      email,
-      password,
-    };
-
-    console.log('Dati da inviare al backend:', userData);
-
-    this.http.post('https://TUO_BACKEND/api/signup', userData).subscribe({
+    // Eseguo la richiesta POST al backend per registrare l'utente
+    this.http.post('https://Giorgio_BACKEND/api/signup', userData).subscribe({
       next: (res) => {
+        // Se la registrazione va a buon fine, mostro un messaggio
         console.log('Registrazione avvenuta con successo!', res);
         alert('Registrazione completata!');
-        form.reset();
+        // Resetto il form
+        this.signUpForm.reset();
       },
       error: (err) => {
+        // Se c'è un errore, mostro un messaggio di errore
         console.error('Errore nella registrazione', err);
         alert('Errore durante la registrazione.');
       },
     });
+  }
+  // Getter per i controlli del form (utile per la gestione dei messaggi di errore nel template)
+  get f() {
+    return this.signUpForm.controls as {
+      nome: any;
+      cognome: any;
+      email: any;
+      password: any;
+      confirmPassword: any;
+    };
   }
 }
