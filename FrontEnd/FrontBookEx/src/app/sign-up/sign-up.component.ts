@@ -24,8 +24,8 @@ export class SignUpComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.signUpForm = this.fb.group(
       {
-        nome: ['', Validators.required], // Campo obbligatorio
-        cognome: ['', Validators.required], // Campo obbligatorio
+        name: ['', Validators.required], // Campo obbligatorio
+        surname: ['', Validators.required], // Campo obbligatorio
         email: ['', [Validators.required, Validators.email]], // Campo 'email' obbligatorio e deve essere un'email valida
         password: ['', [Validators.required, Validators.minLength(8)]], // Campo 'password' obbligatorio e con almeno 8 caratteri
         confirmPassword: ['', Validators.required], // Campo 'confirmPassword' obbligatorio per confermare la password
@@ -50,19 +50,19 @@ export class SignUpComponent {
     }
 
     // Estraggo i dati dal form
-    const { nome, cognome, email, password } = this.signUpForm.value;
+    const { name, surname, email, password } = this.signUpForm.value;
     // Imposto il numero di "salt rounds" per il processo di criptazione della password
     const saltRounds = 10;
     // Cifro la password prima di inviarla al backend
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
     // Creo un oggetto con i dati dell'utente, usando la password cifrata
-    const userData = { nome, cognome, email, password: hashedPassword };
+    const userData = { name, surname, email, password: hashedPassword };
 
     // Log per vedere i dati prima di inviarli quindi questo dovremmo toglierlo appena ho l'url di Giorgio
     console.log('Dati da inviare al backend (JSON):', JSON.stringify(userData));
 
     // Eseguo la richiesta POST al backend per registrare l'utente
-    this.http.post('https://Giorgio_BACKEND/api/signup', userData).subscribe({
+    this.http.post('http://localhost:4100/users', userData).subscribe({
       next: (res) => {
         // Se la registrazione va a buon fine, mostro un messaggio
         console.log('Registrazione avvenuta con successo!', res);
@@ -80,8 +80,8 @@ export class SignUpComponent {
   // Getter per i controlli del form (utile per la gestione dei messaggi di errore nel template)
   get f() {
     return this.signUpForm.controls as {
-      nome: any;
-      cognome: any;
+      name: any;
+      surname: any;
       email: any;
       password: any;
       confirmPassword: any;

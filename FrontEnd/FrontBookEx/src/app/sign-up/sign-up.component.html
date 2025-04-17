@@ -11,13 +11,13 @@
              <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
-          <input id="nome" class="form-control" formControlName="nome" type="text"  placeholder="Inserisci il tuo nome" />
-          <small *ngIf="f.nome.touched && f.nome.invalid" class="text-danger">Il nome è obbligatorio</small>
+          <input id="name" class="form-control" formControlName="name" type="text"  placeholder="Inserisci il tuo nome" />
+          <small *ngIf="f.name.touched && f.name.invalid" class="text-danger">Il nome è obbligatorio</small>
           </div>
           <div class="mb-3">
             <label for="cognome" class="form-label">Cognome</label>
-           <input id="cognome" class="form-control" formControlName="cognome" type="text" placeholder="Inserisci il tuo cognome" />
-          <small *ngIf="f.cognome.touched && f.cognome.invalid" class="text-danger">Il cognome è obbligatorio</small>
+           <input id="surname" class="form-control" formControlName="surname" type="text" placeholder="Inserisci il tuo cognome" />
+          <small *ngIf="f.surname.touched && f.surname.invalid" class="text-danger">Il cognome è obbligatorio</small>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
