@@ -62,7 +62,7 @@ export class SignUpComponent {
     console.log('Dati da inviare al backend (JSON):', JSON.stringify(userData));
 
     // Eseguo la richiesta POST al backend per registrare l'utente
-    this.http.post('http://localhost:4100/users', userData).subscribe({
+    this.http.post('http://localhost:8080/users', userData).subscribe({
       next: (res) => {
         // Se la registrazione va a buon fine, mostro un messaggio
         console.log('Registrazione avvenuta con successo!', res);
