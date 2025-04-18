@@ -1,14 +1,12 @@
 package com.bookexchange.main.controller;
 
 import com.bookexchange.main.model.User;
-import com.bookexchange.main.repository.UserRepository;
 import com.bookexchange.main.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/users")
@@ -25,12 +23,12 @@ public class UserController {
         if (userService.emailExists(user.getEmail())) {
             return ResponseEntity
                     .status(HttpStatus.CONFLICT)
-                    .body("Esiste già un account con questa mail");
+                    .body(Collections.singletonMap("error", "Email già in uso!"));
         }
         else {
             userService.saveUser(user);
             userService.sendToken(user);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Utente creato, controlla la console per confermare.");
+            return ResponseEntity.status(201).body(Collections.singletonMap("message", "Utente creato, controlla la console per confermare"));
         }
     }
 

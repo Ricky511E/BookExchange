@@ -20,7 +20,10 @@ public class User {
     private Boolean enabled = false;
     private String token;
 
-    public User() {}
+    public User() {
+        this.enabled = false;
+        this.token = UUID.randomUUID().toString();
+    }
 
     public User(String id, String name, String surname, String email, String password) {
         this.id = id;
@@ -68,6 +71,7 @@ public class User {
             throw new IllegalArgumentException("Password mancante");
         }
     }
+
 
     @Override
     public String toString() {
