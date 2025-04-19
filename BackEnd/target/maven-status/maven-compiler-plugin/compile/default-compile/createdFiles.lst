@@ -1,6 +1,0 @@
-com\bookexchange\main\controller\UserController.class
-com\bookexchange\main\config\CorsConfig.class
-com\bookexchange\main\MainApplication.class
-com\bookexchange\main\service\UserService.class
-com\bookexchange\main\model\User.class
-com\bookexchange\main\repository\UserRepository.class
