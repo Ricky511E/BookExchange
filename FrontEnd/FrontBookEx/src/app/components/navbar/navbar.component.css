@@ -1,0 +1,74 @@
+/* Spazio tra categorie e ricerca */
+.navbar-nav .nav-item {
+  margin-right: 20px; /* Distanzia gli elementi della navbar */
+}
+
+/* Distanza tra il logo "BookExchange" al centro */
+.navbar .fs-3 {
+  /* Rimuovi i margini per un centro perfetto */
+  margin-left: 0;
+  margin-right: 0;
+  /* Utilizzo di text-align per centrare */
+  text-align: center;
+}
+
+/* Spazio tra i bottoni "Home", "Libreria", "Profilo" */
+
+
+/* Stili navbar */
+.navbar-nav .nav-link {
+  color: #2a7f62;
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #3a9a6f;
+}
+
+.btn-success {
+  background-color: #2a7f62;
+  border-color: #2a7f62;
+}
+
+.btn-success:hover {
+  background-color: #3a9a6f;
+  border-color: #3a9a6f;
+}
+
+input.form-control:focus {
+  border-color: #2a7f62;
+  box-shadow: 0 0 0 0.25rem rgba(42, 127, 98, 0.25);
+}
+
+.dropdown-menu {
+  background-color: #ffffff;
+  border: 1px solid #d1f2b4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu .dropdown-item {
+  color: #2a7f62;
+  font-weight: 500;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #e9f7ef;
+  color: #3a9a6f;
+}
+
+.list-group-item-action:hover {
+  background-color: #e6f4ee;
+  cursor: pointer;
+}
+
+input.form-control:focus {
+  border-color: #2a7f62;
+  box-shadow: 0 0 0 0.25rem rgba(42, 127, 98, 0.25);
+}
+.navbar .transition-flex {
+  transition: all 0.4s ease-in-out;
+}
+
+.navbar .search-wrapper {
+  transition: width 0.4s ease-in-out;
+}
