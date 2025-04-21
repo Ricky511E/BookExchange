@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
+
 export class LoginComponent {
   loginForm: FormGroup;
 
@@ -22,15 +23,27 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) return;
+    const saltRounds = 10;
     const { email, password } = this.loginForm.value;
-    this.http.post('http://localhost:8080/login', { email, password })
+    this.http.post('http://localhost:8080/userlogin/userlogin', { email, password }, {withCredentials: true})
       .subscribe({
-        next: res => {
-          alert('Login riuscito!');
-          this.loginForm.reset();
+        
+        next: (res: any) => {
+          console.log('Risposta dal backend:', res);
+          if (res.success) {
+            alert('Login riuscito!');
+            this.loginForm.reset();
+          } else {
+            alert(res.message);
+          }
         },
         error: err => {
-          alert('Credenziali errate.');
+          console.log('Errore dal backend:', err);
+          if (err.status === 401) {
+            alert('Credenziali errate.');
+          } else {
+            alert('Si è verificato un errore durante il login.');
+          }
         }
       });
   }
