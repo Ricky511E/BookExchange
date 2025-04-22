@@ -51,12 +51,8 @@ export class SignUpComponent {
 
     // Estraggo i dati dal form
     const { name, surname, email, password } = this.signUpForm.value;
-    // Imposto il numero di "salt rounds" per il processo di criptazione della password
-    const saltRounds = 10;
-    // Cifro la password prima di inviarla al backend
-    const hashedPassword = bcrypt.hashSync(password, saltRounds);
     // Creo un oggetto con i dati dell'utente, usando la password cifrata
-    const userData = { name, surname, email, password: hashedPassword };
+    const userData = { name, surname, email, password};
 
     // Log per vedere i dati prima di inviarli quindi questo dovremmo toglierlo appena ho l'url di Giorgio
     console.log('Dati da inviare al backend (JSON):', JSON.stringify(userData));
