@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,45 +9,56 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-  // Dichiaro books come any[] (oppure definisci interface Book {...})
-  books: any[] = [
+  originalBooks = [
     {
-      title: 'Il Signore degli Anelli',
-      author: 'J.R.R. Tolkien',
+      title: 'LOTR',
+      author: 'Tolkien',
       genre: 'Fantasy',
       cover: 'https://via.placeholder.com/150x200?text=LOTR',
-      conditions: 'Usato'
+      conditions: 'Usato',
+      plot: 'meme'
     },
     {
       title: '1984',
-      author: 'George Orwell',
+      author: 'Orwell',
       genre: 'Distopia',
       cover: 'https://via.placeholder.com/150x200?text=1984',
-      conditions: 'Nuovo'
+      conditions: 'Nuovo',
+      plot: 'meme'
     },
     {
-      title: 'Harry Potter',
-      author: 'J.K. Rowling',
+      title: 'HP',
+      author: 'Rowling',
       genre: 'Fantasy',
       cover: 'https://via.placeholder.com/150x200?text=HP',
-      conditions: 'Buone condizioni'
+      conditions: 'Buone',
+      plot: 'meme'
     }
   ];
-
+  books: any[] = [];
   selectedBook: any = null;
 
-  ngOnInit(): void {}
-
-  openModal(book: any) {
-    this.selectedBook = book;
+  ngOnInit(): void {
+    // inizializza con 15 card
+    for (let i = 0; i < 5; i++) {
+      this.books.push(...this.originalBooks);
+    }
   }
 
-  closeModal() {
-    this.selectedBook = null;
+  @HostListener('window:scroll', [])
+  onScroll() {
+    // controllo più robusto su tutta la pagina
+    const scrollPos = window.innerHeight + window.scrollY;
+    const pageHeight = document.documentElement.scrollHeight;
+    if (scrollPos >= pageHeight - 100) {
+      this.books.push(...this.originalBooks);
+    }
   }
 
+  openModal(book: any) { this.selectedBook = book; }
+  closeModal() { this.selectedBook = null; }
   addToLibrary(book: any) {
-    console.log('Aggiunto alla libreria:', book.title);
+    console.log('Aggiunto in libreria:', book.title);
     this.closeModal();
   }
 }
