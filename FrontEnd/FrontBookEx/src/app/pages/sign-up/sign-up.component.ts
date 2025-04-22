@@ -51,7 +51,7 @@ export class SignUpComponent {
 
     // Estraggo i dati dal form
     const { name, surname, email, password } = this.signUpForm.value;
-    // Creo un oggetto con i dati dell'utente, usando la password cifrata
+    // Creo un oggetto con i dati dell'utente
     const userData = { name, surname, email, password};
 
     // Log per vedere i dati prima di inviarli quindi questo dovremmo toglierlo appena ho l'url di Giorgio
