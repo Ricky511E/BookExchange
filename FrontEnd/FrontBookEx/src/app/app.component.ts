@@ -3,7 +3,7 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from "./login/login.component";
+import { LoginComponent } from "./pages/login/login.component";
 
 @Component({
   selector: 'app-root',
