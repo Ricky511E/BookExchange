@@ -132,3 +132,21 @@ button.btn:hover {
   margin-top: 5px;
   margin-left: 5px;
 }
+
+.btn-outline-success {
+  background-color: transparent;
+  border: 2px solid #388e61;
+  color: #388e61;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-success:hover {
+  background-color: #388e61;
+  color: white;
+}
+
+p {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #333;
+}
