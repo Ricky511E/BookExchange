@@ -8,12 +8,12 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import * as bcrypt from 'bcryptjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
 })
@@ -52,7 +52,7 @@ export class SignUpComponent {
     // Estraggo i dati dal form
     const { name, surname, email, password } = this.signUpForm.value;
     // Creo un oggetto con i dati dell'utente
-    const userData = { name, surname, email, password};
+    const userData = { name, surname, email, password };
 
     // Log per vedere i dati prima di inviarli quindi questo dovremmo toglierlo appena ho l'url di Giorgio
     console.log('Dati da inviare al backend (JSON):', JSON.stringify(userData));
