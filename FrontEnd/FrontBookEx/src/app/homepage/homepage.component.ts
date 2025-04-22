@@ -16,7 +16,7 @@ export class HomepageComponent implements OnInit {
       genre: 'Fantasy',
       cover: 'https://via.placeholder.com/150x200?text=LOTR',
       conditions: 'Usato',
-      plot: 'meme'
+      plot: 'skibidi'
     },
     {
       title: '1984',
@@ -24,7 +24,7 @@ export class HomepageComponent implements OnInit {
       genre: 'Distopia',
       cover: 'https://via.placeholder.com/150x200?text=1984',
       conditions: 'Nuovo',
-      plot: 'meme'
+      plot: 'sigma boi'
     },
     {
       title: 'HP',
@@ -32,28 +32,45 @@ export class HomepageComponent implements OnInit {
       genre: 'Fantasy',
       cover: 'https://via.placeholder.com/150x200?text=HP',
       conditions: 'Buone',
-      plot: 'meme'
+      plot: 'toilet'
     }
-  ];
+  ];  
   books: any[] = [];
   selectedBook: any = null;
 
   ngOnInit(): void {
-    // inizializza con 15 card
-    for (let i = 0; i < 5; i++) {
-      this.books.push(...this.originalBooks);
+    this.loadBooks(30);
+  }
+  
+  loadBooks(count: number = 15) {
+    for (let i = 0; i < count / this.originalBooks.length; i++) {
+      const cloned = this.originalBooks.map(book => ({
+        ...book,
+        plot: this.getRandomPlot()
+      }));
+      this.books.push(...cloned);
     }
   }
-
+  
   @HostListener('window:scroll', [])
   onScroll() {
-    // controllo più robusto su tutta la pagina
-    const scrollPos = window.innerHeight + window.scrollY;
-    const pageHeight = document.documentElement.scrollHeight;
-    if (scrollPos >= pageHeight - 100) {
-      this.books.push(...this.originalBooks);
+    const scrollTop = window.scrollY;
+    const clientHeight = window.innerHeight;
+    const scrollHeight = document.documentElement.scrollHeight;
+  
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
+      this.loadBooks(9);
     }
   }
+  
+  getRandomPlot(): string {
+    const memePlots = [
+      'skibidi', 'toilet', 'sigma boi', 'gigachad',
+      'rizzler', 'sus', 'meme king', 'npc moment', 'deez nuts'
+    ];
+    return memePlots[Math.floor(Math.random() * memePlots.length)];
+  }  
+     
 
   openModal(book: any) { this.selectedBook = book; }
   closeModal() { this.selectedBook = null; }

@@ -1,37 +1,41 @@
-/* banda laterale con colore tenue */
 body {
-  background-color: #e6f6ec;
+  background: linear-gradient(to right, #cdeedd 0%, #ffffff 50%, #cdeedd 100%);
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+@media (max-width: 1200px) {
+  body {
+    background: #e6f6ec;
+  }
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1300px;
   margin: 0 auto;
   background: white;
   padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 128, 0, 0.1);
 }
 
-/* griglia */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
 }
 
-/* card */
 .book-card {
-  border: 2px solid #8bdc91;
-  border-radius: 10px;
-  background-color: #f5fff8;
-  box-shadow: 0 4px 6px rgba(0,128,0,0.1);
+  border: 1px solid #8bdc91;
+  border-radius: 12px;
+  background-color: #f1fff6;
+  box-shadow: 0 6px 10px rgba(0, 128, 0, 0.07);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* immagine */
 .img-wrap { overflow: hidden; }
 .book-cover {
   width: 100%; height: 200px; object-fit: cover;
@@ -41,33 +45,35 @@ body {
   transform: scale(1.05);
 }
 
-/* titolo/autore */
 .book-title {
-  font-size: 1.2rem; margin: 10px;
-}
-.book-author {
-  font-style: italic; color: #388e61;
-  margin: 0 10px 10px; flex-grow: 1;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 10px;
 }
 
-/* bottone più piccolo */
+.book-author {
+  font-style: italic;
+  color: #3c9c70;
+  margin: 0 10px 10px;
+  flex-grow: 1;
+}
+
 .btn {
-  background-color: #388e61;
-  border: none;
-  margin: 10px;
+  background-color: #3ca675;
   padding: 8px 12px;
   font-size: 0.9rem;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 8px;
   color: white;
-  align-self: center;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 .btn:hover {
-  background-color: #237a56;
+  background-color: #2d835e;
   transform: scale(1.05);
 }
 
-/* modal (unchanged) */
 .modal-backdrop {
   position: fixed; inset: 0;
   background: rgba(0,128,0,0.4);
@@ -93,4 +99,23 @@ body {
 .book-plot {
   font-size: 0.95rem; color: #555;
   margin: 10px 0; text-align: left;
+}
+
+.side-band {
+  position: fixed;
+  top: 0;
+  width: 50px;
+  height: 100vh;
+  background: #d0eadb;
+  z-index: -1;
+}
+
+.left-band {
+  left: 0;
+  border-right: 1px solid #b0d8c2;
+}
+
+.right-band {
+  right: 0;
+  border-left: 1px solid #b0d8c2;
 }
