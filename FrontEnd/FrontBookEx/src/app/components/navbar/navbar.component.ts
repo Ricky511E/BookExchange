@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 
   loadCategories() {
     // Metodo per caricare le categorie
-    this.http.get<any[]>('URLapiGiorgio/categories').subscribe({
+    this.http.get<any[]>('http://localhost:8080/books/genres').subscribe({
       next: (res) => (this.categories = res), // Salvo la risposta nell'array categories
       error: (err) => console.error('Errore caricamento categorie:', err),
     }); // Gestisco l'errore
