@@ -1,0 +1,49 @@
+<div class="user-profile">
+  <!-- Sezione Profilo Utente -->
+  <div class="profile-info">
+    <img [src]="userProfile.image" alt="Profile Image" class="profile-image"/>
+    <h2>{{ userProfile.name }} {{ userProfile.surname }}</h2>
+    <p>{{ userProfile.email }}</p>
+  </div>
+
+  <!-- Lista dei Libri -->
+  <div class="book-list">
+    <h3>I miei libri</h3>
+    <div *ngFor="let book of books" class="book-item" (click)="openBookModal(book)">
+      <img [src]="book.cover" alt="Book Cover" class="book-cover"/>
+      <div class="book-details">
+        <h4>{{ book.title }}</h4>
+        <p>{{ book.category }}</p>
+        <p>{{ book.condition }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Dettagli Libro -->
+  <div class="modal" *ngIf="selectedBook" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal()">&#10005;</span>
+      <h3>{{ selectedBook.title }}</h3>
+      <img [src]="selectedBook.cover" alt="Book Cover" class="modal-book-cover"/>
+      <p><strong>Categoria:</strong> {{ selectedBook.category }}</p>
+      <p><strong>Condizioni:</strong> {{ selectedBook.condition }}</p>
+      <p><strong>Trama:</strong> {{ selectedBook.plot }}</p>
+    </div>
+  </div>
+
+  <!-- Modal per aggiungere un libro -->
+  <div class="modal" *ngIf="showAddBookModal" (click)="closeAddBookModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeAddBookModal()">&#10005;</span>
+      <h3>Aggiungi un libro</h3>
+      <form (ngSubmit)="addBook()">
+        <input type="file" (change)="onCoverSelected($event)" name="cover" />
+        <input type="text" [(ngModel)]="newBook.title" name="title" placeholder="Titolo" required />
+        <input type="text" [(ngModel)]="newBook.category" name="category" placeholder="Categoria" required />
+        <input type="text" [(ngModel)]="newBook.condition" name="condition" placeholder="Condizioni" required />
+        <textarea [(ngModel)]="newBook.plot" name="plot" placeholder="Trama" required></textarea>
+        <button type="submit">Salva</button>
+      </form>
+    </div>
+  </div>
+</div>
