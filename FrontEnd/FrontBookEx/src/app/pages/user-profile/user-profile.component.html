@@ -4,8 +4,8 @@
     <img [src]="userProfile.image" alt="Profile Image" class="profile-image" />
 
     <!-- Dettagli del profilo centrati orizzontalmente sotto l'immagine -->
-    <div class="profile-details">
-      <div>
+    <div class="profile-details merriweather-regular">
+      <div class="profile-name">
         <strong>{{ userProfile.name }}</strong>
         <strong>{{ userProfile.surname }}</strong>
       </div>
@@ -14,59 +14,83 @@
       </div>
     </div>
   </div>
-  <h3 class="book-title">My Books</h3>
 
-  <!-- Lista dei Libri -->
-  <!-- <div class="book-list">
-    <div
-      *ngFor="let book of books"
-      class="book-item"
-      (click)="openBookModal(book)"
-    >
-      <img [src]="book.cover" alt="Book Cover" class="book-cover" />
-      <div class="book-details">
-        <h4>{{ book.title }}</h4>
-        <p>{{ book.category }}</p>
-        <p>{{ book.condition }}</p>
+  <!-- Library -->
+  <div class="title-wrapper">
+    <h3 *ngIf="isTyping" #titleRef class="mybook whisper-regular typing-cursor">
+      {{ displayedText }}
+    </h3>
+  </div>
+  <div class="book-list">
+    <!-- CARD PER AGGIUNGERE UN NUOVO LIBRO -->
+    <div class="book-item add-book-card" (click)="openAddBookModal()">
+      <div class="book-card add-card-content">
+        <span class="plus-sign">+</span>
+        <p class="add-text">Add Book</p>
       </div>
     </div>
-  </div> -->
-<div class="book-list">
-  <div class="book-item" *ngFor="let book of books" (click)="openBookModal(book)">
-    <div class="book-card">
-      <img [src]="book.cover" alt="Book Cover" class="book-cover" />
-      <div class="book-info">
-        <h4>{{ book.title }}</h4>
-        <p>{{ book.category }}</p>
-        <p>{{ book.condition }}</p>
+    <!-- CARD LIBRI ESISTENTI -->
+    <div
+      class="book-item"
+      *ngFor="let book of books"
+      (click)="openBookModal(book)"
+    >
+      <div class="book-card">
+        <img [src]="book.cover" alt="Book Cover" class="book-cover" />
+        <div class="book-details merriweather-regular">
+          <h4 class="book-title">{{ book.title }}</h4>
+          <p class="book-category">{{ book.genre }}</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- Modal Dettagli Libro -->
   <div class="modal" *ngIf="selectedBook" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
+    <div
+      class="modal-content-det merriweather-regular"
+      (click)="$event.stopPropagation()"
+    >
       <span class="close" (click)="closeModal()">&#10005;</span>
-      <h3>{{ selectedBook.title }}</h3>
-      <img
-        [src]="selectedBook.cover"
-        alt="Book Cover"
-        class="modal-book-cover"
-      />
-      <p><strong>Categoria:</strong> {{ selectedBook.category }}</p>
-      <p><strong>Condizioni:</strong> {{ selectedBook.condition }}</p>
-      <p><strong>Trama:</strong> {{ selectedBook.plot }}</p>
+      <h3 class="book-title-modal">{{ selectedBook.title }}</h3>
+      <div class="modal-body">
+        <img
+          [src]="selectedBook.cover"
+          alt="Book Cover"
+          class="modal-book-cover"
+        />
+        <div class="book-info">
+          <div class="info-row-one">
+            <p><strong>Genere :</strong> {{ selectedBook.genre }}</p>
+          </div>
+          <div class="info-row-one">
+            <p><strong>Condizioni :</strong> {{ selectedBook.condition }}</p>
+          </div>
+          <div class="info-row">
+            <strong>Trama :</strong>
+            <span>{{ selectedBook.plot }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Modal per aggiungere un libro -->
   <div class="modal" *ngIf="showAddBookModal" (click)="closeAddBookModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
+    <div
+      class="modal-content merriweather-regular"
+      (click)="$event.stopPropagation()"
+    >
       <span class="close" (click)="closeAddBookModal()">&#10005;</span>
-      <h3>Aggiungi un libro</h3>
+      <h3 class="aggiungi">Aggiungi un libro</h3>
       <form (ngSubmit)="addBook()">
-        <input type="file" (change)="onCoverSelected($event)" name="cover" />
+        <input
+          type="text"
+          [(ngModel)]="newBook.cover"
+          name="cover"
+          placeholder="URL della copertina"
+          required
+        />
         <input
           type="text"
           [(ngModel)]="newBook.title"

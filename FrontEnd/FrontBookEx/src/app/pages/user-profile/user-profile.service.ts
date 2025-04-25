@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,11 @@ export class UserProfileService {
     return this.http.get<any[]>('/api/user/books');
   }
 
+  // addBook(book: any): Observable<any> {
+  //   return this.http.post('/api/user/books', book);
+  // }
   addBook(book: any): Observable<any> {
-    return this.http.post('/api/user/books', book);
+    console.log('Libro da salvare:', book);
+    return of(book); // mock: ritorna subito il libro
   }
 }
