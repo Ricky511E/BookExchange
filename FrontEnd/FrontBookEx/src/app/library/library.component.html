@@ -1,0 +1,60 @@
+<div class="library-container">
+    <div class="lists">
+      <!-- Lista interessati -->
+      <div class="list">
+        <h3>Libri di tuo interesse</h3>
+        <ul>
+          <li *ngFor="let b of interestedBooks">
+            <label>
+              <input
+                type="radio"
+                name="interested"
+                (change)="selectedInterested = b"
+                [checked]="selectedInterested === b"
+              />
+              <strong>{{ b.title }}</strong> – {{ b.author }}
+            </label>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Lista tuoi libri -->
+      <div class="list">
+        <h3>I tuoi libri</h3>
+        <ul>
+          <li *ngFor="let b of ownBooks">
+            <label>
+              <input
+                type="radio"
+                name="own"
+                (change)="selectedOwn = b"
+                [checked]="selectedOwn === b"
+              />
+              <strong>{{ b.title }}</strong> – {{ b.author }}
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Pulsante Scambia -->
+    <button class="btn swap-btn"
+            (click)="openConfirm()"
+            [disabled]="!selectedInterested || !selectedOwn">
+      Scambia
+    </button>
+  
+    <!-- Mini-Modal di conferma -->
+    <div class="modal-backdrop" *ngIf="showConfirmModal" (click)="cancelSwap()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <p>
+          Confermi lo scambio di
+          <strong>{{ selectedInterested.title }}</strong>
+          con
+          <strong>{{ selectedOwn.title }}</strong>?
+        </p>
+        <button class="btn modal-btn" (click)="confirmSwap()">Conferma</button>
+        <button class="btn modal-btn cancel" (click)="cancelSwap()">Annulla</button>
+      </div>
+    </div>
+  </div>  

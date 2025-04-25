@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from "./login/login.component";
 import { HomepageComponent } from "./homepage/homepage.component";
+import { LibraryComponent } from './library/library.component';
 
 @Component({
   selector: 'app-root',
-  imports: [SignUpComponent, LoginComponent, HomepageComponent],
+  imports: [SignUpComponent, LoginComponent, HomepageComponent, LibraryComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

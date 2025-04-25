@@ -1,0 +1,105 @@
+.library-container {
+    max-width: 900px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Contenitore delle due liste affiancate */
+  .lists {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  /* Stili lista */
+  .list {
+    flex: 1;
+    background: #f5fff8;
+    padding: 20px;
+    border: 1px solid #8bdc91;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,128,0,0.1);
+  }
+  
+  .list h3 {
+    color: #2a7f62;
+    margin-bottom: 15px;
+  }
+  
+  .list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .list li {
+    margin-bottom: 10px;
+  }
+  
+  .list label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Pulsante Scambia */
+  .swap-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .swap-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 128, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 4px 10px rgba(0,128,0,0.2);
+  }
+  
+  .modal-content p {
+    margin-bottom: 20px;
+  }
+  
+  .modal-btn {
+    margin: 0 10px;
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+  
+  .modal-btn.cancel {
+    background: #ccc;
+    color: #333;
+  }
+  
+  .modal-btn:not(.cancel) {
+    background: #3ca675;
+    color: white;
+  }
+  
+  .modal-btn:not(.cancel):hover {
+    background: #2d835e;
+  }  
