@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
   newBook = {
     cover: '',
     title: '',
-    category: '',
+    genre: '',
     condition: '',
     plot: '',
   };
@@ -34,13 +34,92 @@ export class UserProfileComponent implements OnInit {
   constructor(private userProfileService: UserProfileService) {}
 
   ngOnInit(): void {
-    this.userProfileService.getUserProfile().subscribe((profile) => {
-      this.userProfile = profile;
-    });
+    // this.userProfileService.getUserProfile().subscribe((profile) => {
+    //   this.userProfile = profile;
+    // });
 
-    this.userProfileService.getBooks().subscribe((books) => {
-      this.books = books;
-    });
+    // this.userProfileService.getBooks().subscribe((books) => {
+    //   this.books = books;
+    // });
+    this.userProfile = {
+      image: 'https://randomuser.me/api/portraits/men/32.jpg',
+      name: 'Mario',
+      surname: 'Rossi',
+      email: 'mario.rossi@example.com',
+    };
+
+    this.books = [
+      {
+        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
+        title: 'Il piccolo principe',
+        category: 'Narrativa',
+        condition: 'Ottime',
+        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
+        title: '1984',
+        category: 'Distopico',
+        condition: 'Buone',
+        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
+        title: 'Il piccolo principe',
+        category: 'Narrativa',
+        condition: 'Ottime',
+        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
+        title: '1984',
+        category: 'Distopico',
+        condition: 'Buone',
+        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
+        title: 'Il piccolo principe',
+        category: 'Narrativa',
+        condition: 'Ottime',
+        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
+        title: '1984',
+        category: 'Distopico',
+        condition: 'Buone',
+        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
+        title: 'Il piccolo principe',
+        category: 'Narrativa',
+        condition: 'Ottime',
+        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
+        title: '1984',
+        category: 'Distopico',
+        condition: 'Buone',
+        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
+        title: 'Il piccolo principe',
+        category: 'Narrativa',
+        condition: 'Ottime',
+        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
+      },
+      {
+        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
+        title: '1984',
+        category: 'Distopico',
+        condition: 'Buone',
+        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
+      },
+    ];
   }
 
   addBook(): void {
@@ -49,7 +128,7 @@ export class UserProfileComponent implements OnInit {
       this.newBook = {
         cover: '',
         title: '',
-        category: '',
+        genre: '',
         condition: '',
         plot: '',
       };

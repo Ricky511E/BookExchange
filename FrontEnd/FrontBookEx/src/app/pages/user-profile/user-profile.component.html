@@ -1,30 +1,59 @@
 <div class="user-profile">
   <!-- Sezione Profilo Utente -->
   <div class="profile-info">
-    <img [src]="userProfile.image" alt="Profile Image" class="profile-image"/>
-    <h2>{{ userProfile.name }} {{ userProfile.surname }}</h2>
-    <p>{{ userProfile.email }}</p>
+    <img [src]="userProfile.image" alt="Profile Image" class="profile-image" />
+
+    <!-- Dettagli del profilo centrati orizzontalmente sotto l'immagine -->
+    <div class="profile-details">
+      <div>
+        <strong>{{ userProfile.name }}</strong>
+        <strong>{{ userProfile.surname }}</strong>
+      </div>
+      <div>
+        <strong>{{ userProfile.email }}</strong>
+      </div>
+    </div>
   </div>
+  <h3 class="book-title">My Books</h3>
 
   <!-- Lista dei Libri -->
-  <div class="book-list">
-    <h3>I miei libri</h3>
-    <div *ngFor="let book of books" class="book-item" (click)="openBookModal(book)">
-      <img [src]="book.cover" alt="Book Cover" class="book-cover"/>
+  <!-- <div class="book-list">
+    <div
+      *ngFor="let book of books"
+      class="book-item"
+      (click)="openBookModal(book)"
+    >
+      <img [src]="book.cover" alt="Book Cover" class="book-cover" />
       <div class="book-details">
         <h4>{{ book.title }}</h4>
         <p>{{ book.category }}</p>
         <p>{{ book.condition }}</p>
       </div>
     </div>
+  </div> -->
+<div class="book-list">
+  <div class="book-item" *ngFor="let book of books" (click)="openBookModal(book)">
+    <div class="book-card">
+      <img [src]="book.cover" alt="Book Cover" class="book-cover" />
+      <div class="book-info">
+        <h4>{{ book.title }}</h4>
+        <p>{{ book.category }}</p>
+        <p>{{ book.condition }}</p>
+      </div>
+    </div>
   </div>
+</div>
 
   <!-- Modal Dettagli Libro -->
   <div class="modal" *ngIf="selectedBook" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <span class="close" (click)="closeModal()">&#10005;</span>
       <h3>{{ selectedBook.title }}</h3>
-      <img [src]="selectedBook.cover" alt="Book Cover" class="modal-book-cover"/>
+      <img
+        [src]="selectedBook.cover"
+        alt="Book Cover"
+        class="modal-book-cover"
+      />
       <p><strong>Categoria:</strong> {{ selectedBook.category }}</p>
       <p><strong>Condizioni:</strong> {{ selectedBook.condition }}</p>
       <p><strong>Trama:</strong> {{ selectedBook.plot }}</p>
@@ -38,10 +67,33 @@
       <h3>Aggiungi un libro</h3>
       <form (ngSubmit)="addBook()">
         <input type="file" (change)="onCoverSelected($event)" name="cover" />
-        <input type="text" [(ngModel)]="newBook.title" name="title" placeholder="Titolo" required />
-        <input type="text" [(ngModel)]="newBook.category" name="category" placeholder="Categoria" required />
-        <input type="text" [(ngModel)]="newBook.condition" name="condition" placeholder="Condizioni" required />
-        <textarea [(ngModel)]="newBook.plot" name="plot" placeholder="Trama" required></textarea>
+        <input
+          type="text"
+          [(ngModel)]="newBook.title"
+          name="title"
+          placeholder="Titolo"
+          required
+        />
+        <input
+          type="text"
+          [(ngModel)]="newBook.genre"
+          name="genre"
+          placeholder="Categoria"
+          required
+        />
+        <input
+          type="text"
+          [(ngModel)]="newBook.condition"
+          name="condition"
+          placeholder="Condizioni"
+          required
+        />
+        <textarea
+          [(ngModel)]="newBook.plot"
+          name="plot"
+          placeholder="Trama"
+          required
+        ></textarea>
         <button type="submit">Salva</button>
       </form>
     </div>

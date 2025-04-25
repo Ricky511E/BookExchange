@@ -1,38 +1,116 @@
 .user-profile {
-  font-family: Arial, sans-serif;
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  flex-direction: column; /* Centra tutti i contenuti verticalmente */
+  background: linear-gradient(to bottom, #2a7f62 30%, #f4f0e2 70%);
+  min-height: 100vh; /* Almeno l'altezza della finestra */
 }
 
 .profile-info {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra l'intero contenuto orizzontalmente */
+  justify-content: center;
+  width: 100%;
+  max-width: 600px; /* Limita la larghezza del contenitore */
+  margin: 2% auto 4%; /* Centra il contenitore */
 }
 
 .profile-image {
-  width: 100px;
-  height: 100px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e9f7ef;
+  margin-bottom: 1rem;
+}
+
+.profile-details {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  margin-top: 3%;
+}
+
+.profile-details strong {
+  font-weight: bold;
+  width: 40%; /* Impostiamo una larghezza per la colonna dell'etichetta */
+  margin-right: 10px; /* Aggiunge un po' di spazio tra il tag e il dato */
+}
+
+.book-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .book-list {
-  margin-top: 20px;
+  /* margin-top: 20px;
+  display: flex;
+  flex-direction: row; */
+   display: flex;
+  flex-wrap: wrap;            /* Le card vanno a capo se non c'è spazio */
+  justify-content: center;    /* Centra le card nella riga */
+  gap: 20px;                  /* Spazio tra le card */
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+}
+.book-info {
+  padding: 1rem;
+  text-align: center;
+}
+
+.book-card {
+ width: 100%;
+  height: 100%; /* Altezza fissa per uniformare le card */
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
 }
 
 .book-item {
-  display: flex;
-  margin: 10px;
+  /* display: flex;
+  margin: 20px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center; */
+  flex: 0 0 calc(25% - 20px); /* 4 card per riga con gap di 20px */
+  box-sizing: border-box;
   cursor: pointer;
 }
 
+.book-info {
+  padding: 1rem;
+  text-align: center;
+  flex-grow: 1;
+}
 .book-cover {
-  width: 60px;
-  height: 90px;
-  margin-right: 20px;
+  /* width: 200px;
+  height: 270px; */
+    width: 100%;
+  height:-webkit-fill-available;
+  object-fit: cover;
 }
 
 .book-details {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  margin-top: 10%;
 }
 
 .modal {
@@ -75,7 +153,8 @@ button:hover {
   background-color: #3a9a6f; /* Verde scuro */
 }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 8px;
   margin: 5px 0;
