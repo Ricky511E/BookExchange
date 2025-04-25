@@ -1,5 +1,6 @@
 <div class="side-band left-band"></div>
 <div class="side-band right-band"></div>
+
 <div class="container">
   <div class="book-grid">
     <div class="book-card" *ngFor="let book of books">
@@ -8,7 +9,8 @@
       </div>
       <h2 class="book-title">{{ book.title }}</h2>
       <p class="book-author">di {{ book.author }}</p>
-      <button class="btn" (click)="openModal(book)">Aggiungi</button>
+      <p class="book-owner">Proprietario: {{ book.owner }}</p>
+      <button class="btn card-btn" (click)="openModal(book)">Aggiungi</button>
     </div>
   </div>
 
@@ -18,9 +20,10 @@
       <img [src]="selectedBook.cover" alt="{{selectedBook.title}}" class="modal-cover" />
       <h2>{{ selectedBook.title }}</h2>
       <p><strong>Autore:</strong> {{ selectedBook.author }}</p>
+      <p><strong>Proprietario:</strong> {{ selectedBook.owner }}</p>
       <p><strong>Genere:</strong> {{ selectedBook.genre }}</p>
       <p><strong>Condizioni:</strong> {{ selectedBook.conditions }}</p>
-      <p class="book-plot">{{ selectedBook.plot }}</p>
+      <p class="book-plot"><strong>Trama:</strong><br> {{ selectedBook.plot }}</p>
       <button class="btn" (click)="addToLibrary(selectedBook)">Aggiungi in libreria</button>
     </div>
   </div>

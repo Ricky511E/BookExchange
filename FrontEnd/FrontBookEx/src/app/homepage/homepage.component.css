@@ -58,10 +58,16 @@ body {
   flex-grow: 1;
 }
 
+.book-owner {
+  font-style: normal;
+  color: #3c9c70;
+  margin: 0 10px 10px;
+}
+
 .btn {
   background-color: #3ca675;
-  padding: 8px 12px;
-  font-size: 0.9rem;
+  padding: 6px 10px;
+  font-size: 0.8rem;
   border-radius: 8px;
   color: white;
   border: none;

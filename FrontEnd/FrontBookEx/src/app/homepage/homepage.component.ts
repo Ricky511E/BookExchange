@@ -13,6 +13,7 @@ export class HomepageComponent implements OnInit {
     {
       title: 'LOTR',
       author: 'Tolkien',
+      owner: 'Mario Rossi',
       genre: 'Fantasy',
       cover: 'https://via.placeholder.com/150x200?text=LOTR',
       conditions: 'Usato',
@@ -21,6 +22,7 @@ export class HomepageComponent implements OnInit {
     {
       title: '1984',
       author: 'Orwell',
+      owner: 'Giulia Bianchi',
       genre: 'Distopia',
       cover: 'https://via.placeholder.com/150x200?text=1984',
       conditions: 'Nuovo',
@@ -29,12 +31,14 @@ export class HomepageComponent implements OnInit {
     {
       title: 'HP',
       author: 'Rowling',
+      owner: 'Luca Verdi',
       genre: 'Fantasy',
       cover: 'https://via.placeholder.com/150x200?text=HP',
       conditions: 'Buone',
       plot: 'toilet'
     }
   ];  
+
   books: any[] = [];
   selectedBook: any = null;
 
@@ -70,7 +74,6 @@ export class HomepageComponent implements OnInit {
     ];
     return memePlots[Math.floor(Math.random() * memePlots.length)];
   }  
-     
 
   openModal(book: any) { this.selectedBook = book; }
   closeModal() { this.selectedBook = null; }
