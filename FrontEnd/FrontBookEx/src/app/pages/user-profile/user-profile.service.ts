@@ -9,18 +9,21 @@ export class UserProfileService {
   constructor(private http: HttpClient) {}
 
   getUserProfile(): Observable<any> {
-    return this.http.get('/api/user/profile'); // cambia l'endpoint in base al tuo back
+    return this.http.get('/api/user/profile');
   }
 
   getBooks(): Observable<any[]> {
     return this.http.get<any[]>('/api/user/books');
   }
 
-  // addBook(book: any): Observable<any> {
-  //   return this.http.post('/api/user/books', book);
-  // }
   addBook(book: any): Observable<any> {
-    console.log('Libro da salvare:', book);
-    return of(book); // mock: ritorna subito il libro
+    return this.http.post('/api/user/books', book);
   }
+
+  // Metodo per aggiornare l'immagine profilo (con URL dell'immagine)
+  updateProfileImage(newImageUrl: string): Observable<any> {
+    return this.http.put('/api/user/profile/image', { image: newImageUrl }); // questo se si usa la put
+    // return this.http.post('/api/user/profile/image', { image: newImageUrl }); // questo la post
+  }
+
 }

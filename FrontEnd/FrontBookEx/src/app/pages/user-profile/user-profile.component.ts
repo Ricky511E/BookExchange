@@ -33,7 +33,7 @@ export class UserProfileComponent implements OnInit {
   isTyping = false;
 
   userProfile = {
-    image: 'https://via.placeholder.com/100', // fallback temporaneo
+    image: '',
     name: '',
     surname: '',
     email: '',
@@ -59,92 +59,13 @@ export class UserProfileComponent implements OnInit {
       this.typeText();
     }, 1000);
 
-    // this.userProfileService.getUserProfile().subscribe((profile) => {
-    //   this.userProfile = profile;
-    // });
+    this.userProfileService.getUserProfile().subscribe((profile) => {
+      this.userProfile = profile;
+    });
 
-    // this.userProfileService.getBooks().subscribe((books) => {
-    //   this.books = books;
-    // });
-    this.userProfile = {
-      image: 'https://randomuser.me/api/portraits/men/32.jpg',
-      name: 'Mario',
-      surname: 'Rossi',
-      email: 'mario.rossi@example.com',
-    };
-
-    this.books = [
-      {
-        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
-        title: 'Il piccolo principe',
-        genre: 'Narrativa',
-        condition: 'Ottime',
-        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
-        title: '1984',
-        genre: 'Distopico',
-        condition: 'Buone',
-        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
-        title: 'Il piccolo principe',
-        genre: 'Narrativa',
-        condition: 'Ottime',
-        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
-        title: '1984',
-        genre: 'Distopico',
-        condition: 'Buone',
-        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
-        title: 'Il piccolo principe',
-        genre: 'Narrativa',
-        condition: 'Ottime',
-        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
-        title: '1984',
-        genre: 'Distopico',
-        condition: 'Buone',
-        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
-        title: 'Il piccolo principe',
-        genre: 'Narrativa',
-        condition: 'Ottime',
-        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
-        title: '1984',
-        genre: 'Distopico',
-        condition: 'Buone',
-        plot: 'Un futuro totalitario dove tutto è sotto controllo.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/8228691-L.jpg',
-        title: 'Il piccolo principe',
-        genre: 'Narrativa',
-        condition: 'Ottime',
-        plot: 'Un viaggio filosofico nel mondo dei bambini e degli adulti.',
-      },
-      {
-        cover: 'https://covers.openlibrary.org/b/id/7222246-L.jpg',
-        title: '1984',
-        genre: 'Distopico',
-        condition: 'Buone',
-        plot: 'Un futuro totalitario dove tutto è sotto controllo.Un futuro totalitario dove tutto è sotto controlloUn futuro totalitario dove tutto è sotto controllo',
-      },
-    ];
+    this.userProfileService.getBooks().subscribe((books) => {
+      this.books = books;
+    });
   }
 
   typeText() {
@@ -203,5 +124,36 @@ export class UserProfileComponent implements OnInit {
 
   closeAddBookModal() {
     this.showAddBookModal = false;
+  }
+
+  showImageModal = false;
+  newProfileImageUrl = '';
+
+  openImageModal() {
+    this.showImageModal = true;
+  }
+
+  closeImageModal() {
+    this.showImageModal = false;
+  }
+
+  // Metodo per aggiornare l'immagine profilo
+  updateProfileImage() {
+    this.userProfileService
+      .updateProfileImage(this.newProfileImageUrl)
+      .subscribe(
+        (response) => {
+          // Aggiorna l'immagine localmente dopo il salvataggio
+          this.userProfile.image = this.newProfileImageUrl;
+          this.closeImageModal();
+          alert('Immagine del profilo aggiornata con successo!');
+        },
+        (error) => {
+          console.error("Errore durante l'aggiornamento dell'immagine:", error);
+          alert(
+            "Si è verificato un errore durante l'aggiornamento dell'immagine."
+          );
+        }
+      );
   }
 }

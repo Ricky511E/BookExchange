@@ -1,7 +1,18 @@
 <div class="user-profile">
   <!-- Sezione Profilo Utente -->
   <div class="profile-info">
-    <img [src]="userProfile.image" alt="Profile Image" class="profile-image" />
+    <img
+      [src]="userProfile.image || 'default-profile.png'"
+      alt="Profile Image"
+      class="profile-image"
+    />
+    <!-- Bottone per cambiare immagine -->
+    <button
+      class="icon btn btn-primary change-image-button"
+      (click)="openImageModal()"
+    >
+      <i class="bi bi-plus-circle"></i>
+    </button>
 
     <!-- Dettagli del profilo centrati orizzontalmente sotto l'immagine -->
     <div class="profile-details merriweather-regular">
@@ -22,6 +33,7 @@
     </h3>
   </div>
   <div class="book-list">
+
     <!-- CARD PER AGGIUNGERE UN NUOVO LIBRO -->
     <div class="book-item add-book-card" (click)="openAddBookModal()">
       <div class="book-card add-card-content">
@@ -118,7 +130,27 @@
           placeholder="Trama"
           required
         ></textarea>
-        <button type="submit">Salva</button>
+        <button class="submit" type="submit">Salva</button>
+      </form>
+    </div>
+  </div>
+  <!-- Modal per inserire nuovo URL immagine -->
+  <div class="modal" *ngIf="showImageModal" (click)="closeImageModal()">
+    <div
+      class="modal-content merriweather-regular"
+      (click)="$event.stopPropagation()"
+    >
+      <span class="close" (click)="closeImageModal()">&#10005;</span>
+      <h3 class="aggiungi">Aggiorna l'immagine profilo</h3>
+      <form (ngSubmit)="updateProfileImage()">
+        <input
+          type="text"
+          [(ngModel)]="newProfileImageUrl"
+          name="newProfileImageUrl"
+          placeholder="URL immagine"
+          required
+        />
+        <button class="submit" type="submit">Salva</button>
       </form>
     </div>
   </div>
