@@ -1,0 +1,157 @@
+<div class="user-profile">
+  <!-- Sezione Profilo Utente -->
+  <div class="profile-info">
+    <img
+      [src]="userProfile.image || 'default-profile.png'"
+      alt="Profile Image"
+      class="profile-image"
+    />
+    <!-- Bottone per cambiare immagine -->
+    <button
+      class="icon btn btn-primary change-image-button"
+      (click)="openImageModal()"
+    >
+      <i class="bi bi-plus-circle"></i>
+    </button>
+
+    <!-- Dettagli del profilo centrati orizzontalmente sotto l'immagine -->
+    <div class="profile-details merriweather-regular">
+      <div class="profile-name">
+        <strong>{{ userProfile.name }}</strong>
+        <strong>{{ userProfile.surname }}</strong>
+      </div>
+      <div>
+        <strong>{{ userProfile.email }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Library -->
+  <div class="title-wrapper">
+    <h3 *ngIf="isTyping" #titleRef class="mybook whisper-regular typing-cursor">
+      {{ displayedText }}
+    </h3>
+  </div>
+  <div class="book-list">
+
+    <!-- CARD PER AGGIUNGERE UN NUOVO LIBRO -->
+    <div class="book-item add-book-card" (click)="openAddBookModal()">
+      <div class="book-card add-card-content">
+        <span class="plus-sign">+</span>
+        <p class="add-text">Add Book</p>
+      </div>
+    </div>
+    <!-- CARD LIBRI ESISTENTI -->
+    <div
+      class="book-item"
+      *ngFor="let book of books"
+      (click)="openBookModal(book)"
+    >
+      <div class="book-card">
+        <img [src]="book.cover" alt="Book Cover" class="book-cover" />
+        <div class="book-details merriweather-regular">
+          <h4 class="book-title">{{ book.title }}</h4>
+          <p class="book-category">{{ book.genre }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Dettagli Libro -->
+  <div class="modal" *ngIf="selectedBook" (click)="closeModal()">
+    <div
+      class="modal-content-det merriweather-regular"
+      (click)="$event.stopPropagation()"
+    >
+      <span class="close" (click)="closeModal()">&#10005;</span>
+      <h3 class="book-title-modal">{{ selectedBook.title }}</h3>
+      <div class="modal-body">
+        <img
+          [src]="selectedBook.cover"
+          alt="Book Cover"
+          class="modal-book-cover"
+        />
+        <div class="book-info">
+          <div class="info-row-one">
+            <p><strong>Genere :</strong> {{ selectedBook.genre }}</p>
+          </div>
+          <div class="info-row-one">
+            <p><strong>Condizioni :</strong> {{ selectedBook.condition }}</p>
+          </div>
+          <div class="info-row">
+            <strong>Trama :</strong>
+            <span>{{ selectedBook.plot }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal per aggiungere un libro -->
+  <div class="modal" *ngIf="showAddBookModal" (click)="closeAddBookModal()">
+    <div
+      class="modal-content merriweather-regular"
+      (click)="$event.stopPropagation()"
+    >
+      <span class="close" (click)="closeAddBookModal()">&#10005;</span>
+      <h3 class="aggiungi">Aggiungi un libro</h3>
+      <form (ngSubmit)="addBook()">
+        <input
+          type="text"
+          [(ngModel)]="newBook.cover"
+          name="cover"
+          placeholder="URL della copertina"
+          required
+        />
+        <input
+          type="text"
+          [(ngModel)]="newBook.title"
+          name="title"
+          placeholder="Titolo"
+          required
+        />
+        <input
+          type="text"
+          [(ngModel)]="newBook.genre"
+          name="genre"
+          placeholder="Categoria"
+          required
+        />
+        <input
+          type="text"
+          [(ngModel)]="newBook.condition"
+          name="condition"
+          placeholder="Condizioni"
+          required
+        />
+        <textarea
+          [(ngModel)]="newBook.plot"
+          name="plot"
+          placeholder="Trama"
+          required
+        ></textarea>
+        <button class="submit" type="submit">Salva</button>
+      </form>
+    </div>
+  </div>
+  <!-- Modal per inserire nuovo URL immagine -->
+  <div class="modal" *ngIf="showImageModal" (click)="closeImageModal()">
+    <div
+      class="modal-content merriweather-regular"
+      (click)="$event.stopPropagation()"
+    >
+      <span class="close" (click)="closeImageModal()">&#10005;</span>
+      <h3 class="aggiungi">Aggiorna l'immagine profilo</h3>
+      <form (ngSubmit)="updateProfileImage()">
+        <input
+          type="text"
+          [(ngModel)]="newProfileImageUrl"
+          name="newProfileImageUrl"
+          placeholder="URL immagine"
+          required
+        />
+        <button class="submit" type="submit">Salva</button>
+      </form>
+    </div>
+  </div>
+</div>
