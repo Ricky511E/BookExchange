@@ -13,11 +13,11 @@ export class UserProfileService {
   }
 
   getBooks(): Observable<any[]> {
-    return this.http.get<any[]>('/api/user/books');
+    return this.http.get<any[]>('http://localhost:8080/books');
   }
 
   addBook(book: any): Observable<any> {
-    return this.http.post('/api/user/books', book);
+    return this.http.post('http://localhost:8080/books', book);
   }
 
   // Metodo per aggiornare l'immagine profilo (con URL dell'immagine)
