@@ -7,6 +7,7 @@ interface Book {
   title: string;
   author: string;
   owner: string;
+  cover: string;
 }
 
 @Component({
@@ -24,20 +25,16 @@ export class LibraryComponent implements OnInit {
   showConfirmModal = false;
 
   private placeholderInterested: Book[] = [
-    { title: 'Dune', author: 'Herbert', owner: 'Mario Rossi' },
-    { title: 'Fahrenheit 451', author: 'Bradbury', owner: 'Giulia Bianchi' },
-    { title: 'Il vecchio e il mare', author: 'Hemingway', owner: 'Luca Verdi' },
-    { title: 'Il codice Da Vinci', author: 'Brown', owner: 'Elena Neri' },
-    { title: 'La Divina Commedia', author: 'Dante', owner: 'Francesca Blu' },
-    { title: 'Harry Potter 1', author: 'Rowling', owner: 'Federico Gialli' }
+    { title: 'Dune', author: 'Herbert', owner: 'Mario Rossi', cover: 'https://via.placeholder.com/150x200?text=Dune' },
+    { title: 'Fahrenheit 451', author: 'Bradbury', owner: 'Giulia Bianchi', cover: 'https://via.placeholder.com/150x200?text=451' },
+    { title: 'Il vecchio e il mare', author: 'Hemingway', owner: 'Luca Verdi', cover: 'https://via.placeholder.com/150x200?text=Vecchio' }
+    // … altri
   ];
   private placeholderOwn: Book[] = [
-    { title: 'Il piccolo principe', author: 'Saint-Exupéry', owner: 'Tu' },
-    { title: 'La coscienza di Zeno', author: 'Svevo', owner: 'Tu' },
-    { title: 'Orgoglio e Pregiudizio', author: 'Austen', owner: 'Tu' },
-    { title: 'Anna Karenina', author: 'Tolstoy', owner: 'Tu' },
-    { title: 'Moby Dick', author: 'Melville', owner: 'Tu' },
-    { title: '1984', author: 'Orwell', owner: 'Tu' }
+    { title: 'Il piccolo principe', author: 'Saint-Exupéry', owner: 'Tu', cover: 'https://via.placeholder.com/150x200?text=Principe' },
+    { title: 'La coscienza di Zeno', author: 'Svevo', owner: 'Tu', cover: 'https://via.placeholder.com/150x200?text=Zeno' },
+    { title: 'Orgoglio e Pregiudizio', author: 'Austen', owner: 'Tu', cover: 'https://via.placeholder.com/150x200?text=Orgoglio' }
+    // … altri
   ];
 
   constructor(private http: HttpClient) {}
@@ -46,6 +43,7 @@ export class LibraryComponent implements OnInit {
     this.http.get<Book[]>('http://localhost:8080/library/interested')
       .pipe(catchError(() => of(this.placeholderInterested)))
       .subscribe(data => this.interestedBooks = data);
+
     this.http.get<Book[]>('http://localhost:8080/library/own')
       .pipe(catchError(() => of(this.placeholderOwn)))
       .subscribe(data => this.ownBooks = data);
