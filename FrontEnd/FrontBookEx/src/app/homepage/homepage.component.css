@@ -1,27 +1,34 @@
-body {
-  background: linear-gradient(to right, #cdeedd 0%, #ffffff 50%, #cdeedd 100%);
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+:host {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #2a7f62 30%, #f4f0e2 70%);
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
-@media (max-width: 1200px) {
-  body {
-    background: #e6f6ec;
-  }
+:host::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 
 .container {
+  width: 100%;
   max-width: 1300px;
-  margin: 0 auto;
-  background: white;
-  padding: 30px;
+  background: rgba(255,255,255,0.15);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 128, 0, 0.1);
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0,128,0,0.2);
+  margin-bottom: 2rem;
 }
 
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
   gap: 20px;
 }
 
@@ -29,18 +36,30 @@ body {
   border: 1px solid #8bdc91;
   border-radius: 12px;
   background-color: #f1fff6;
-  box-shadow: 0 6px 10px rgba(0, 128, 0, 0.07);
+  box-shadow: 0 4px 6px rgba(0,128,0,0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform .2s ease, box-shadow .2s ease;
+  cursor: pointer;
 }
 
-.img-wrap { overflow: hidden; }
-.book-cover {
-  width: 100%; height: 200px; object-fit: cover;
-  transition: transform 0.2s ease;
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0,128,0,0.2);
 }
+
+.img-wrap {
+  overflow: hidden;
+}
+
+.book-cover {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform .2s ease;
+}
+
 .book-card:hover .book-cover {
   transform: scale(1.05);
 }
@@ -51,77 +70,83 @@ body {
   margin: 10px;
 }
 
-.book-author {
+.book-author,
+.book-owner {
   font-style: italic;
   color: #3c9c70;
   margin: 0 10px 10px;
-  flex-grow: 1;
 }
 
 .book-owner {
   font-style: normal;
-  color: #3c9c70;
-  margin: 0 10px 10px;
 }
 
 .btn {
-  background-color: #3ca675;
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  border-radius: 8px;
+  background-color: #4db36d;
   color: white;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border-radius: 6px;
   border: none;
-  margin: 10px;
+  margin: 10px auto;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background .3s ease, transform .2s ease;
 }
+
 .btn:hover {
-  background-color: #2d835e;
+  background-color: #3a9a6f;
   transform: scale(1.05);
 }
 
 .modal-backdrop {
-  position: fixed; inset: 0;
-  background: rgba(0,128,0,0.4);
-  display: flex; justify-content: center; align-items: center;
-  z-index: 999;
-}
-.modal-content {
-  position: relative;
-  background: white; padding: 30px;
-  border-radius: 10px; width: 90%; max-width: 400px;
-  box-shadow: 0 0 10px rgba(0,128,0,0.2);
-  text-align: center;
-}
-.modal-close {
-  position: absolute; top: 10px; right: 10px;
-  background: transparent; border: none;
-  font-size: 1.5rem; cursor: pointer;
-}
-.modal-cover {
-  width: 100%; height: 250px; object-fit: cover;
-  margin-bottom: 15px;
-}
-.book-plot {
-  font-size: 0.95rem; color: #555;
-  margin: 10px 0; text-align: left;
-}
-
-.side-band {
   position: fixed;
-  top: 0;
-  width: 50px;
-  height: 100vh;
-  background: #d0eadb;
-  z-index: -1;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.left-band {
-  left: 0;
-  border-right: 1px solid #b0d8c2;
+.modal-content {
+  background: rgba(255,255,255,0.15);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fafafa;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-.right-band {
-  right: 0;
-  border-left: 1px solid #b0d8c2;
+.modal-close {
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 1.5rem;
+  background: transparent;
+  border: none;
+  color: #fafafa;
+  cursor: pointer;
+}
+
+.modal-cover {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.book-plot {
+  font-size: 0.95rem;
+  color: #fafafa;
+  margin: 1rem 0;
+  text-align: left;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    padding: 1.5rem;
+  }
 }
