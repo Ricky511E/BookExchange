@@ -1,0 +1,80 @@
+<nav
+  class="navbar navbar-expand-lg navbar-light shadow-sm px-4 py-3"
+  style="background-color: #e9f7ef; position: relative"
+>
+  <div class="container-fluid">
+    <!-- CENTRO SOLO SU SCHERMI GRANDI -->
+    <div class="position-absolute top-50 start-50 translate-middle d-none d-lg-block">
+      <span class="fs-3 fw-bold" style="color: #2a7f62">BookExchange</span>
+    </div>
+
+    <!-- CENTRO SU SCHERMI PICCOLI -->
+    <div class="w-100 text-center mb-3 d-block d-lg-none">
+      <span class="fs-3 fw-bold" style="color: #2a7f62">BookExchange</span>
+    </div>
+
+    <!-- CONTENUTO PRINCIPALE: WRAP SU MOBILE -->
+    <div class="d-flex flex-lg-row flex-column w-100 justify-content-between align-items-center gap-3">
+
+      <!-- SINISTRA -->
+      <div class="d-flex align-items-center gap-3 flex-wrap">
+        <!-- Dropdown -->
+        <div class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
+            Categorie
+          </a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let categories of categories">
+              <a class="dropdown-item" href="#">{{ categories.nome }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Ricerca -->
+        <div class="position-relative" style="width: 250px; max-width: 100%;">
+          <input
+            class="form-control"
+            type="search"
+            placeholder="Cerca titolo"
+            [(ngModel)]="searchTitle"
+            name="title"
+            (input)="onSearchInput()"
+            autocomplete="off"
+          />
+          <ul
+            *ngIf="tip.length > 0"
+            class="list-group position-absolute w-100 mt-1"
+            style="z-index: 1000"
+          >
+            <li
+              *ngFor="let book of tip"
+              class="list-group-item list-group-item-action"
+              (click)="getBook(book)"
+            >
+              {{ book.title }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DESTRA -->
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <button class="btn btn-success" (click)="Home()">Home</button>
+        <button class="btn btn-success" (click)="Library()">Libreria</button>
+        <a
+          class="d-flex align-items-center text-decoration-none text-dark"
+          (click)="Profile()"
+          style="cursor: pointer"
+        >
+          <i class="bi bi-person-circle fs-4 me-1" routerLink="/user-profile"></i>
+          <span>Profilo</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</nav>
